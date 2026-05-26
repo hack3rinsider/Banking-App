@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>NovaBank Transfer</title>
+<link rel="stylesheet" href="dashboard.css">
+<script src="api.js"></script>
+</head>
+<body>
+
+<div class="sidebar">
+<div class="brand">NovaBank</div>
+
+<div class="menu">
+<a href="dashboard.html">Dashboard</a>
+<a href="transfer.html">Transfer</a>
+<a href="profile.html">Profile</a>
+<a href="#" onclick="logout(); return false;">Logout</a>
+</div>
+</div>
+
+<div class="main">
+
+<div class="hero">
+<h3>Money Transfer</h3>
+<h1>Send Funds</h1>
+</div>
+
+<div class="card">
+
+<label>From Account</label>
+<input id="sender" readonly>
+
+<label>To Account</label>
+<input id="receiver" placeholder="Account Number">
+
+<label>Amount</label>
+<input id="amount" type="number" placeholder="Amount">
+
+<button onclick="transferMoney()">
+Transfer Funds
+</button>
+
+<br><br>
+
+<div id="status"></div>
+
+</div>
+
+</div>
+
+<script>
+
+
+let account='';
+
+async function init(){
+
+ const token=localStorage.getItem('token');
+
+ if(!token){
+  location.href='login.html';
+  return;
+ }
+
+ const res=await fetch(API+'/me',{
+  headers:{
+   Authorization:`Bearer ${token}`
+  }
+ });
+
+ const user=await res.json();
+
+ account=user.account_number;
+
+ sender.value=account;
+}
+
+async function transferMoney(){
+
+ const receiver=document.getElementById('receiver').value;
+ const amount=Number(document.getElementById('amount').value);
+
+ if(!amount || amount<=0){
+  alert('Enter valid amount');
+  return;
+ }
+
+ const res=await fetch(API+'/transfer',{
+  method:'POST',
+  headers:{
+   'Content-Type':'application/json'
+  },
+  body:JSON.stringify({
+   sender:account,
+   receiver,
+   amount
+  })
+ });
+
+ const data=await res.json();
+
+ status.innerHTML=data.message;
+
+ if(res.ok){
+  setTimeout(()=>{
+   location.href='dashboard.html';
+  },1000);
+ }
+
+}
+
+window.logout=function(){
+ localStorage.removeItem('token');
+ location.href='login.html';
+}
+
+init();
+
+</script>
+
+</body>
+</html>

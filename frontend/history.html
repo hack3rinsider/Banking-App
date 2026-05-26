@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Transaction History</title>
+<link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+<nav>
+<h2>MyBank</h2>
+</nav>
+
+<div class="container">
+
+<div class="card full">
+
+<h2>Recent Transactions</h2>
+
+<table id="txTable">
+<tr>
+<th>Sender</th>
+<th>Receiver</th>
+<th>Amount</th>
+<th>Date</th>
+</tr>
+</table>
+
+</div>
+
+</div>
+
+<script>
+const API=`${window.location.protocol}//${window.location.hostname}:13000`;
+
+async function loadTx(){
+
+ const res=await fetch(API+"/transactions");
+ const data=await res.json();
+
+ const table=document.getElementById("txTable");
+
+ data.forEach(tx=>{
+
+  table.innerHTML += `
+  <tr>
+   <td>${tx.sender_account}</td>
+   <td>${tx.receiver_account}</td>
+   <td>₹${tx.amount}</td>
+   <td>${tx.created_at}</td>
+  </tr>
+  `;
+
+ });
+
+}
+
+loadTx();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+services:
+
+  db:
+    image: postgres:16
+    container_name: banking-db
+    environment:
+      POSTGRES_DB: bankingdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    ports:
+      - "15432:5432"
+
+  backend:
+    build: ./backend
+    container_name: banking-api
+    depends_on:
+      - db
+    ports:
+      - "13000:3000"
+
+  frontend:
+    build: ./frontend
+    container_name: banking-frontend
+    depends_on:
+      - backend
+    ports:
+      - "18080:80"
