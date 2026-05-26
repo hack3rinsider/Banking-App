@@ -3,5 +3,17 @@ CREATE TABLE IF NOT EXISTS users (
     full_name VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
+    role VARCHAR(20) DEFAULT 'USER',
+    account_number VARCHAR(20),
+    balance NUMERIC(12,2) DEFAULT 10000.00,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS transactions (
+    id SERIAL PRIMARY KEY,
+    sender_account VARCHAR(20),
+    receiver_account VARCHAR(20),
+    amount NUMERIC(12,2),
+    type VARCHAR(20) DEFAULT 'TRANSFER',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
