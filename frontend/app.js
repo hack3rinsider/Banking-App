@@ -19,6 +19,7 @@ async function login(){
 
  if(res.ok && data.token){
   localStorage.setItem("token",data.token);
+  localStorage.setItem("user",JSON.stringify(data.user));
   location.href="dashboard.html";
  }else{
   alert(data.message || data.error || "Invalid login");
@@ -53,3 +54,4 @@ async function registerUser(){
  }
 
 }
+//Wed May 27 05:14:20 PM IST 2026

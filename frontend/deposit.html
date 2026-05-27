@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NovaBank Add Money</title>
+
+<link rel="stylesheet" href="dashboard.css">
+
+<style>
+
+body{
+  margin:0;
+  background:#020817;
+  color:white;
+  font-family:Arial,sans-serif;
+}
+
+nav{
+  background:#111827;
+  padding:18px 40px;
+  display:flex;
+  gap:30px;
+}
+
+nav a{
+  color:white;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+.wrapper{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:85vh;
+}
+
+.card{
+  width:420px;
+  background:#111827;
+  padding:40px;
+  border-radius:18px;
+  box-shadow:0 0 20px rgba(0,0,0,0.4);
+}
+
+h1{
+  text-align:center;
+  margin-bottom:30px;
+}
+
+input{
+  width:100%;
+  padding:16px;
+  margin-bottom:20px;
+  border:none;
+  border-radius:12px;
+  background:#1f2937;
+  color:white;
+  font-size:16px;
+  box-sizing:border-box;
+}
+
+button{
+  width:100%;
+  padding:16px;
+  border:none;
+  border-radius:12px;
+  background:#2563eb;
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#1d4ed8;
+}
+
+#status{
+  margin-top:20px;
+  text-align:center;
+  font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="transfer.html">Transfer</a>
+  <a href="deposit.html">Add Money</a>
+  <a href="profile.html">Profile</a>
+</nav>
+
+<div class="wrapper">
+
+  <div class="card">
+
+    <h1>Add Money</h1>
+
+    <input type="number" id="amount" placeholder="Enter Amount">
+
+    <button onclick="deposit()">Deposit</button>
+
+    <div id="status"></div>
+
+  </div>
+
+</div>
+
+<script>
+
+function parseJwt(token){
+
+  try{
+    return JSON.parse(atob(token.split('.')[1]));
+  }catch(err){
+    return null;
+  }
+
+}
+
+async function deposit(){
+
+  const token = localStorage.getItem("token");
+
+  if(!token){
+
+    document.getElementById("status").innerText="Login Required";
+    return;
+
+  }
+
+  const user = parseJwt(token);
+
+  if(!user || !user.account_number){
+
+    document.getElementById("status").innerText="Invalid User Session";
+    return;
+
+  }
+
+  const amount = document.getElementById("amount").value;
+
+  if(!amount || Number(amount)<=0){
+
+    document.getElementById("status").innerText="Enter Valid Amount";
+    return;
+
+  }
+
+  try{
+
+    const res = await fetch('/api/deposit',{
+
+      method:'POST',
+
+      headers:{
+        'Content-Type':'application/json'
+      },
+
+      body:JSON.stringify({
+        account:user.account_number,
+        amount
+      })
+
+    });
+
+    const data = await res.json();
+
+    document.getElementById("status").innerText =
+      data.message || data.error;
+
+  }catch(err){
+
+    document.getElementById("status").innerText =
+      "Deposit Failed";
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>

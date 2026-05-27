@@ -82,7 +82,10 @@ app.post('/login', async (req, res) => {
     const token = jwt.sign(
       {
         id:user.id,
-        email:user.email
+        email:user.email,
+        account_number:user.account_number,
+        balance:user.balance,
+        role:user.role
       },
       'banking-secret',
       {
@@ -96,7 +99,10 @@ app.post('/login', async (req, res) => {
       user:{
         id:user.id,
         name:user.full_name,
-        email:user.email
+        email:user.email,
+        account_number:user.account_number,
+        balance:user.balance,
+        role:user.role
       }
     });
 
