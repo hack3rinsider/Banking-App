@@ -3,7 +3,7 @@ async function login(){
  const email=document.getElementById('email').value;
  const password=document.getElementById('password').value;
 
- const res=await fetch("http://192.168.29.108:13000/login",{
+ const res=await fetch("/api/login",{
   method:"POST",
   headers:{'Content-Type':'application/json'},
   body:JSON.stringify({email,password})
@@ -26,7 +26,7 @@ async function registerUser(){
  const email=document.getElementById('email').value;
  const password=document.getElementById('password').value;
 
- const res=await fetch("http://192.168.29.108:13000/register",{
+ const res=await fetch("/api/register",{
   method:"POST",
   headers:{'Content-Type':'application/json'},
   body:JSON.stringify({full_name,email,password})
