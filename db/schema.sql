@@ -17,3 +17,71 @@ CREATE TABLE IF NOT EXISTS transactions (
     type VARCHAR(20) DEFAULT 'TRANSFER',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+INSERT INTO users
+(full_name,email,password,role,account_number,balance)
+VALUES
+(
+'Admin User',
+'admin@bank.com',
+'\$2b\$10\$X7Ur6d0Q5WQx9Xl1P4K8WuhQwY8r7vW9z0w0K0mK5J0WQ9m8XzQ8e',
+'ADMIN',
+'9999999999',
+999999.00
+)
+ON CONFLICT (email) DO NOTHING;
+
+INSERT INTO users
+(full_name,email,password,role,account_number,balance)
+VALUES
+(
+'Demo User',
+'user@bank.com',
+'\$2b\$10\$X7Ur6d0Q5WQx9Xl1P4K8WuhQwY8r7vW9z0w0K0mK5J0WQ9m8XzQ8e',
+'USER',
+'1111111111',
+10000.00
+)
+ON CONFLICT (email) DO NOTHING;
+
+
+INSERT INTO users
+(full_name,email,password,role,account_number,balance)
+VALUES
+(
+'Admin User',
+'admin@bank.com',
+'\$2b\$10\$X7Ur6d0Q5WQx9Xl1P4K8WuhQwY8r7vW9z0w0K0mK5J0WQ9m8XzQ8e',
+'ADMIN',
+'9999999999',
+999999.00
+)
+ON CONFLICT (email) DO NOTHING;
+
+INSERT INTO users
+(full_name,email,password,role,account_number,balance)
+VALUES
+(
+'Demo User',
+'user@bank.com',
+'\$2b\$10\$X7Ur6d0Q5WQx9Xl1P4K8WuhQwY8r7vW9z0w0K0mK5J0WQ9m8XzQ8e',
+'USER',
+'1111111111',
+10000.00
+)
+ON CONFLICT (email) DO NOTHING;
+
+
+INSERT INTO users
+(full_name,email,password,role,account_number,balance)
+VALUES
+(
+'Admin User',
+'admin@bank.com',
+'\$2b\$10\$Wu1JC.8t9M5sy69Rw6Nc9.qrHPmmQEKwcOTay5WLEJ3TL82n9mVze',
+'ADMIN',
+'9999999999',
+999999
+)
+ON CONFLICT (email) DO NOTHING;
+
