@@ -27,9 +27,11 @@ app.post('/register', async (req, res) => {
 
     const hash = await bcrypt.hash(password, 10);
 
+    const account_number = Math.floor(1000000000 + Math.random() * 9000000000).toString();
+
     await pool.query(
-      'INSERT INTO users(full_name,email,password) VALUES($1,$2,$3)',
-      [full_name, email, hash]
+      'INSERT INTO users(full_name,email,password,account_number) VALUES($1,$2,$3)',
+      [full_name, email, hash, account_number]
     );
 
     res.json({ message: 'User Registered' });
