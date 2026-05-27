@@ -24,10 +24,22 @@ VALUES
 (
 'Admin User',
 'admin@bank.com',
-'\$2b\$10\$Wu1JC.8t9M5sy69Rw6Nc9.qrHPmmQEKwcOTay5WLEJ3TL82n9mVze',
+'$2b$10$Wu1JC.8t9M5sy69Rw6Nc9.qrHPmmQEKwcOTay5WLEJ3TL82n9mVze',
 'ADMIN',
 '9999999999',
 999999
 )
 ON CONFLICT (email) DO NOTHING;
 
+INSERT INTO users
+(full_name,email,password,role,account_number,balance)
+VALUES
+(
+'Demo User',
+'user@bank.com',
+'$2b$10$Wu1JC.8t9M5sy69Rw6Nc9.qrHPmmQEKwcOTay5WLEJ3TL82n9mVze',
+'USER',
+'1111111111',
+10000
+)
+ON CONFLICT (email) DO NOTHING;
