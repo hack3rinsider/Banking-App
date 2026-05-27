@@ -1,0 +1,67 @@
+---
+- hosts: web
+  become: yes
+
+  tasks:
+
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+
+    - name: Start nginx safely
+      shell: nginx || true
+
+    - name: Remove old app
+      file:
+        path: /opt/banking-app
+        state: absent
+
+    - name: Clone repo
+      git:
+        repo: https://github.com/hack3rinsider/Banking-App.git
+        dest: /opt/banking-app
+        force: yes
+
+    - name: Install backend dependencies
+      shell: |
+        cd /opt/banking-app/backend
+        npm install
+
+    - name: Install PM2
+      npm:
+        name: pm2
+        global: yes
+
+    - name: Start backend
+      shell: |
+        cd /opt/banking-app/backend
+        pm2 delete banking-api || true
+        pm2 start server.js --name banking-api
+
+    - name: Deploy frontend
+      shell: |
+        rm -rf /var/www/html/*
+        cp -r /opt/banking-app/frontend/* /var/www/html/
+
+    - name: Configure nginx
+      copy:
+        dest: /etc/nginx/sites-available/default
+        content: |
+          server {
+            listen 80;
+            root /var/www/html;
+            index login.html;
+
+            location / {
+              try_files $uri $uri/ =404;
+            }
+
+            location /api/ {
+              proxy_pass http://127.0.0.1:3000/;
+            }
+          }
+
+    - name: Restart nginx
+      shell: nginx -s reload || true

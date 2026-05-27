@@ -1,0 +1,32 @@
+- hosts: web
+  become: yes
+
+  tasks:
+
+    - name: Restore clean backend repo
+      file:
+        path: /opt/banking-app
+        state: absent
+
+    - name: Clone fresh repo
+      git:
+        repo: https://github.com/hack3rinsider/Banking-App.git
+        dest: /opt/banking-app
+        force: yes
+
+    - name: Fix DB hostname safely
+      replace:
+        path: /opt/banking-app/backend/server.js
+        regexp: "host:\\s*'db',"
+        replace: "host: 'db1',"
+
+    - name: Install backend dependencies
+      shell: |
+        cd /opt/banking-app/backend
+        npm install
+
+    - name: Restart backend cleanly
+      shell: |
+        pm2 delete banking-api || true
+        cd /opt/banking-app/backend
+        pm2 start server.js --name banking-api

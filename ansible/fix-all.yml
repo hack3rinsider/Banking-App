@@ -1,0 +1,21 @@
+- hosts: web
+  become: yes
+
+  tasks:
+
+    - name: Force correct DB host safely
+      replace:
+        path: /opt/banking-app/backend/server.js
+        regexp: "host:\\s*'db',"
+        replace: "host: 'db1',"
+
+    - name: Ensure backend always running
+      shell: |
+        pm2 restart banking-api || pm2 start /opt/banking-app/backend/server.js --name banking-api
+
+    - name: Wait for DB ready
+      shell: nc -zv db1 5432
+      register: db_check
+      retries: 10
+      delay: 3
+      until: db_check.rc == 0
