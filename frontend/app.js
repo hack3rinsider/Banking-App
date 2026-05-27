@@ -9,13 +9,19 @@ async function login(){
   body:JSON.stringify({email,password})
  });
 
- const data=await res.json();
+ let data = {};
+
+ try{
+  data = await res.json();
+ }catch(e){
+  data = { error: "Invalid server response" };
+ }
 
  if(res.ok && data.token){
   localStorage.setItem("token",data.token);
   location.href="dashboard.html";
  }else{
-  alert("Invalid login");
+  alert(data.message || data.error || "Invalid login");
  }
 
 }
@@ -32,9 +38,15 @@ async function registerUser(){
   body:JSON.stringify({full_name,email,password})
  });
 
- const data=await res.json();
+ let data = {};
 
- alert(data.message);
+ try{
+  data = await res.json();
+ }catch(e){
+  data = { error: "Invalid server response" };
+ }
+
+ alert(data.message || data.error || "Request completed");
 
  if(res.ok){
   location.href='login.html';
