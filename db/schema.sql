@@ -24,7 +24,7 @@ VALUES
 (
 'Admin User',
 'admin@bank.com',
-'$2b$10$Wu1JC.8t9M5sy69Rw6Nc9.qrHPmmQEKwcOTay5WLEJ3TL82n9mVze',
+'$2b$10$rohhXeMyP3KkXQ.089My4eSLNqre.CceGXKR6a18rwqNUjEhQZXaO',
 'ADMIN',
 '9999999999',
 999999.00
@@ -37,7 +37,7 @@ VALUES
 (
 'Demo User',
 'user@bank.com',
-'$2b$10$Wu1JC.8t9M5sy69Rw6Nc9.qrHPmmQEKwcOTay5WLEJ3TL82n9mVze',
+'$2b$10$rohhXeMyP3KkXQ.089My4eSLNqre.CceGXKR6a18rwqNUjEhQZXaO',
 'USER',
 '1111111111',
 10000.00
