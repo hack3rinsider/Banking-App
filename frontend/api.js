@@ -1,5 +1,4 @@
-const API = "http://192.168.29.108:13000";
-
+const API = "/api";
 function getToken(){
  return localStorage.getItem("token");
 }
