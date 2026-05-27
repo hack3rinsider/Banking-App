@@ -30,7 +30,7 @@ app.post('/register', async (req, res) => {
     const account_number = Math.floor(1000000000 + Math.random() * 9000000000).toString();
 
     await pool.query(
-      'INSERT INTO users(full_name,email,password,account_number) VALUES($1,$2,$3)',
+      'INSERT INTO users(full_name,email,password,account_number) VALUES($1,$2,$3,$4)',
       [full_name, email, hash, account_number]
     );
 
@@ -251,7 +251,7 @@ app.post('/transfer', async (req,res)=>{
     );
 
     await pool.query(
-      'INSERT INTO transactions(sender_account,receiver_account,amount) VALUES($1,$2,$3)',
+      'INSERT INTO transactions(sender_account,receiver_account,amount) VALUES($1,$2,$3,$4)',
       [sender,receiver,amount]
     );
 
