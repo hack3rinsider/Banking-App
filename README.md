@@ -116,4 +116,37 @@ ansible-playbook -i inventory.ini fix-all.yml
     • 📧 Email Notifications
     • 📱 Mobile Responsive UI
     • 📊 Monitoring Dashboard
+# 🤖 Ansible Banking App Deployment
+
+After running the Ansible playbook, the banking app will be deployed on all web nodes.
+
+---
+
+## 🌐 Access URLs
+
+- 🖥️ web1 → http://localhost:8083  
+- 🖥️ web2 → http://localhost:8084  
+- 🖥️ web3 → http://localhost:8086  
+
+---
+
+## ⚙️ Flow
+
+- Frontend served via Nginx  
+- Backend runs on Node.js (PM2)  
+- API routed through `/api`  
+- Database connected via `db1:5432`  
+
+---
+
+## 🗄️ Database
+
+- Host: `db1`  
+- Port: `5432`  
+
+---
+
+## 🎯 Result
+
+Same app is deployed on 3 servers for practice of Ansible multi-node deployment.
 
