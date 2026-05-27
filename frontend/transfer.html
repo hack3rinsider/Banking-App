@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <title>NovaBank Transfer</title>
-<a href="deposit.html">Add Money</a>
 <link rel="stylesheet" href="dashboard.css">
-<script src="api.js"></script>
 </head>
+
 <body>
 
 <div class="sidebar">
+
 <div class="brand">NovaBank</div>
 
 <div class="menu">
@@ -19,13 +19,13 @@
 <a href="profile.html">Profile</a>
 <a href="#" onclick="logout(); return false;">Logout</a>
 </div>
+
 </div>
 
 <div class="main">
 
 <div class="hero">
 <h3>Money Transfer</h3>
-<a href="deposit.html">Add Money</a>
 <h1>Send Funds</h1>
 </div>
 
@@ -42,7 +42,6 @@
 
 <button onclick="transferMoney()">
 Transfer Funds
-<a href="deposit.html">Add Money</a>
 </button>
 
 <br><br>
@@ -55,6 +54,11 @@ Transfer Funds
 
 <script>
 
+function parseJwt(token){
+
+ return JSON.parse(atob(token.split('.')[1]));
+
+}
 
 let account='';
 
@@ -63,21 +67,18 @@ async function init(){
  const token=localStorage.getItem('token');
 
  if(!token){
+
   location.href='login.html';
   return;
+
  }
 
- const res=await fetch(API+'/me',{
-  headers:{
-   Authorization:`Bearer ${token}`
-  }
- });
-
- const user=await res.json();
+ const user=parseJwt(token);
 
  account=user.account_number;
 
- sender.value=account;
+ document.getElementById('sender').value=account;
+
 }
 
 async function transferMoney(){
@@ -86,37 +87,50 @@ async function transferMoney(){
  const amount=Number(document.getElementById('amount').value);
 
  if(!amount || amount<=0){
+
   alert('Enter valid amount');
   return;
+
  }
 
- const res=await fetch(API+'/transfer',{
+ const res=await fetch('/api/transfer',{
+
   method:'POST',
+
   headers:{
    'Content-Type':'application/json'
   },
+
   body:JSON.stringify({
    sender:account,
    receiver,
    amount
   })
+
  });
 
  const data=await res.json();
 
- status.innerHTML=data.message;
+ document.getElementById('status').innerHTML=
+  data.message || data.error;
 
  if(res.ok){
+
   setTimeout(()=>{
    location.href='dashboard.html';
   },1000);
+
  }
 
 }
 
 window.logout=function(){
+
  localStorage.removeItem('token');
+ localStorage.removeItem('user');
+
  location.href='login.html';
+
 }
 
 init();
