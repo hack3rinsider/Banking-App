@@ -15,6 +15,7 @@ services:
   backend:
     build: ./backend
     container_name: banking-api
+    restart: always
     depends_on:
       - db
     ports:
