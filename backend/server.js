@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 const pool = new Pool({
-  host: 'db1',,
+  host: 'db',
   user: 'postgres',
   password: 'postgres',
   database: 'bankingdb',
