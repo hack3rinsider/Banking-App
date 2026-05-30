@@ -1,152 +1,131 @@
-# 🏦 NovaBank – Full Stack Banking Application
 
-A modern full-stack banking system built for real-world DevOps + backend + deployment practice using **Node.js, PostgreSQL, Docker, Nginx, and Ansible automation**.
+# Banking Demo Application
 
----
+A simple banking application built for DevOps learning, automation practice, and infrastructure deployment demonstrations.
 
-## 🚀 Features
+## Overview
 
-- 👤 User Registration & Login
-- 🔐 JWT Authentication
-- 💰 Deposit Money
-- 🔁 Transfer Funds
-- 📜 Transaction History
-- 📊 Profile Dashboard
-- 🛡️ Admin User Monitoring
-- 🐳 Dockerized Deployment
-- 🌐 Nginx Reverse Proxy
-- ⚙️ Ansible Automated Deployment
+This project was created as a demo banking system that can be deployed and managed using modern DevOps tools and practices. The primary goal is to provide a realistic application for learning and showcasing infrastructure automation rather than building a production banking platform.
 
----
+## DevOps Learning Objectives
 
-## 🧰 Tech Stack
+This application is used for:
 
-### 🎨 Frontend
-- 🧾 HTML
-- 🎨 CSS
-- ⚡ Vanilla JavaScript
-- 🌐 Nginx
+- Docker containerization
+- Docker Compose deployments
+- Ansible automation
+- Infrastructure provisioning
+- Configuration management
+- Application deployment automation
+- Service management
+- Environment configuration
+- CI/CD demonstrations
+- Linux administration practice
+- Monitoring and troubleshooting exercises [will be added in the future]
 
-### 🧠 Backend
-- 🟢 Node.js
-- 🚂 Express.js
-- 🔐 JWT Authentication
-- 🧂 bcrypt Password Hashing
+## Features
 
-### 🗄️ Database
-- 🐘 PostgreSQL
+### User Features
 
-### ⚙️ DevOps / Infra
-- 🐳 Docker
-- 📦 Docker Compose
-- 🤖 Ansible
-- ⚙️ PM2
-- 🌐 Nginx Reverse Proxy
+- User authentication
+- Dashboard
+- Account information
+- Balance display
+- Deposit funds
+- Money transfers
+- Transaction history
+- Profile management
+- Password change
+- Logout
 
----
+### Admin Features
 
-## 🏗️ Project Structure
+- View all users
+- View all account balances
+- View all transactions
+- Monitor user activity
 
-```bash
-Banking-App/
-├── 🤖 ansible/
-├── 🧠 backend/
-├── 🗄️ db/
-├── 🎨 frontend/
-├── 🐳 docker-compose.yml
-└── 📄 README.md
+## Technology Stack
 
-💻 Local Deployment
-cd Banking-App
+Frontend:
+- HTML
+- CSS
+- JavaScript
 
-docker compose down -v
+Backend:
+- Node.js
+- Express.js
+
+Database:
+- PostgreSQL
+
+DevOps:
+- Docker
+- Docker Compose
+- Ansible
+
+## Project Structure
+
+backend/
+frontend/
+db/
+docker-compose.yml
+
+## Running the Application
+
+Build and start containers:
+
 docker compose up -d --build
 
-🌍 Access URLs
-    • 🎨 Frontend → http://localhost:18080
-    • 🧠 Backend API → http://localhost:13000
+Stop containers:
 
-🔑 Default Credentials
-🛡️ Admin
-    • 📧 Email: admin@bank.com
-    • 🔑 Password: admin123
-👤 Demo User
-    • 📧 Email: user@bank.com
-    • 🔑 Password: admin123
+docker compose down
 
-🤖 Ansible Deployment
-Run inside controller container:
-mkdir -p ~/.ssh
-ssh-keyscan -H web1 web2 web3 db1 mon1 >> ~/.ssh/known_hosts
-cd /ansible/Banking-App/ansible
-ansible-playbook -i inventory.ini deploy-banking.yml
-ansible-playbook -i inventory.ini fix-server.yml
-ansible-playbook -i inventory.ini fix-all.yml
+View logs:
 
-🔌 API Endpoints
-🔐 Authentication
-    • POST /login
-    • POST /register
-💰 Banking
-    • POST /deposit
-    • POST /transfer
-    • GET /transactions
-    • GET /my-transactions
-👤 User
-    • GET /me
-    • GET /user/:email
-    • POST /change-password
-🛡️ Admin
-    • GET /admin/users
+docker compose logs -f
 
-📸 Screenshots
-📌 Add later:
-    • 🔐 Login Page
-    • 📊 Dashboard
-    • 💸 Transfer Funds
-    • 💰 Deposit Money
-    • 📜 Transaction History
-    • 🛡️ Admin Panel
+## Application Access
 
-🚀 Future Improvements
-    • 🔄 CI/CD Pipeline
-    • ☸️ Kubernetes Deployment
-    • ⚡ Redis Caching
-    • 🚦 Rate Limiting
-    • 📧 Email Notifications
-    • 📱 Mobile Responsive UI
-    • 📊 Monitoring Dashboard
-# 🤖 Ansible Banking App Deployment
+Frontend:
+http://SERVER_IP:18080
 
-After running the Ansible playbook, the banking app will be deployed on all web nodes.
+Backend API:
+http://SERVER_IP:13000
 
----
+## Demo Credentials
 
-## 🌐 Access URLs
+Admin User
 
-- 🖥️ web1 → http://localhost:8083  
-- 🖥️ web2 → http://localhost:8084  
-- 🖥️ web3 → http://localhost:8086  
+Email: auto@test.com
+Password: temp123
 
----
+Regular Users
 
-## ⚙️ Flow
+Email: test@test.com
+Password: 123456
 
-- Frontend served via Nginx  
-- Backend runs on Node.js (PM2)  
-- API routed through `/api`  
-- Database connected via `db1:5432`  
+Email: receiver@test.com
+Password: 123456
 
----
+Email: pla@pla.com
+Password: 123456
 
-## 🗄️ Database
+Email: kli@mli.com
+Password: 123456
 
-- Host: `db1`  
-- Port: `5432`  
+## Intended Usage
 
----
+This project serves as a deployment target for:
 
-## 🎯 Result
+- Ansible playbooks
+- Docker automation
+- Infrastructure testing
+- Deployment pipelines
+- Configuration management exercises
+- Container orchestration practice
+- System administration labs
 
-Same app is deployed on 3 servers for practice of Ansible multi-node deployment.
+## Disclaimer
 
+This application is intended solely for educational purposes, DevOps demonstrations, and infrastructure automation practice. It is not production-ready and must not be used for real financial operations or sensitive data.
