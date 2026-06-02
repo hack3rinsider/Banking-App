@@ -30,9 +30,10 @@ app.post('/register', async (req, res) => {
     const account_number = Math.floor(1000000000 + Math.random() * 9000000000).toString();
 
 await pool.query(
-  'INSERT INTO transactions(type,sender_account,receiver_account,amount) VALUES($1,$2,$3,$4)',
-  ['TRANSFER',sender,receiver,amount]
+  'INSERT INTO transactions(sender_account,receiver_account,amount) VALUES($1,$2,$3)',
+  [sender,receiver,amount]
 );
+
     res.json({ message: 'User Registered' });
 
   } catch (err) {
@@ -256,7 +257,7 @@ app.post('/transfer', async (req,res)=>{
     );
 
     await pool.query(
-      'INSERT INTO transactions(sender_account,receiver_account,amount) VALUES($1,$2,$3,$4)',
+'INSERT INTO transactions(sender_account,receiver_account,amount) VALUES($1,$2,$3)'
       [sender,receiver,amount]
     );
 
