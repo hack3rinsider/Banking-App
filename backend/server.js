@@ -29,11 +29,10 @@ app.post('/register', async (req, res) => {
 
     const account_number = Math.floor(1000000000 + Math.random() * 9000000000).toString();
 
-    await pool.query(
-      'INSERT INTO users(full_name,email,password,account_number) VALUES($1,$2,$3,$4)',
-      [full_name, email, hash, account_number]
-    );
-
+await pool.query(
+  'INSERT INTO transactions(type,sender_account,receiver_account,amount) VALUES($1,$2,$3,$4)',
+  ['TRANSFER',sender,receiver,amount]
+);
     res.json({ message: 'User Registered' });
 
   } catch (err) {
