@@ -1,131 +1,256 @@
+# 🏦 NovaBank – Full Stack Banking Application
 
-# Banking Demo Application
+A production-style banking application built to practice real-world Backend Development, DevOps, Infrastructure Automation, CI/CD, and Multi-Node Deployments.
 
-A simple banking application built for DevOps learning, automation practice, and infrastructure deployment demonstrations.
+---
 
-## Overview
+# 🚀 Features
 
-This project was created as a demo banking system that can be deployed and managed using modern DevOps tools and practices. The primary goal is to provide a realistic application for learning and showcasing infrastructure automation rather than building a production banking platform.
+* 👤 User Registration
+* 🔐 JWT Authentication
+* 🔑 Secure Login System
+* 💰 Deposit Money
+* 🔁 Transfer Funds
+* 📜 Transaction History
+* 👤 User Profile
+* 🛡️ Admin User Management
+* 🐳 Dockerized Infrastructure
+* 🌐 Nginx Reverse Proxy
+* 🤖 Ansible Automated Deployment
+* ⚙️ PM2 Process Management
+* 🔄 Jenkins CI/CD Pipeline
+* 🗄️ PostgreSQL Auto Initialization
+* 🏗️ Multi-Node Deployment Architecture
 
-## DevOps Learning Objectives
+---
 
-This application is used for:
+# 🧰 Tech Stack
 
-- Docker containerization
-- Docker Compose deployments
-- Ansible automation
-- Infrastructure provisioning
-- Configuration management
-- Application deployment automation
-- Service management
-- Environment configuration
-- CI/CD demonstrations
-- Linux administration practice
-- Monitoring and troubleshooting exercises [will be added in the future]
+## 🎨 Frontend
 
-## Features
+* HTML5
+* CSS3
+* Vanilla JavaScript
+* Nginx
 
-### User Features
+## 🧠 Backend
 
-- User authentication
-- Dashboard
-- Account information
-- Balance display
-- Deposit funds
-- Money transfers
-- Transaction history
-- Profile management
-- Password change
-- Logout
+* Node.js
+* Express.js
+* JWT Authentication
+* bcrypt Password Hashing
 
-### Admin Features
+## 🗄️ Database
 
-- View all users
-- View all account balances
-- View all transactions
-- Monitor user activity
+* PostgreSQL
 
-## Technology Stack
+## ⚙️ DevOps & Infrastructure
 
-Frontend:
-- HTML
-- CSS
-- JavaScript
+* Docker
+* Docker Compose
+* Jenkins
+* Ansible
+* PM2
+* Nginx Reverse Proxy
 
-Backend:
-- Node.js
-- Express.js
+---
+
+# 🏗️ Architecture
+
+```text
+Users
+  │
+  ▼
+Nginx
+  │
+  ▼
+Node.js API (PM2)
+  │
+  ▼
+PostgreSQL
+```
+
+---
+
+# 📁 Project Structure
+
+```text
+Banking-App/
+├── ansible/
+├── backend/
+├── db/
+├── frontend/
+├── docker-compose.yml
+└── README.md
+```
+
+---
+
+# 🌐 Application Access
+
+## Banking Application
+
+* web1 → http://localhost:8083
+* web2 → http://localhost:8084
+* web3 → http://localhost:8086
+
+---
+
+# 🔑 Default Credentials
+
+## Admin User
+
+Email:
+
+[admin@bank.com](mailto:admin@bank.com)
+
+Password:
+
+admin
+
+## Demo User
+
+Email:
+
+[user@bank.com](mailto:user@bank.com)
+
+Password:
+
+admin
+
+---
+
+# 🤖 Ansible Deployment
+
+Run inside controller container:
+
+```bash
+mkdir -p ~/.ssh
+
+ssh-keyscan -H web1 web2 web3 db1 mon1 >> ~/.ssh/known_hosts
+
+cd /ansible/Banking-App/ansible
+
+ansible-playbook -i inventory.ini deploy-banking.yml
+
+ansible-playbook -i inventory.ini fix-server.yml
+
+ansible-playbook -i inventory.ini fix-all.yml
+```
+
+---
+
+# 🔄 Jenkins CI/CD Pipeline
+
+Pipeline automatically:
+
+* Pulls latest code from GitHub
+* Rebuilds containers
+* Recreates infrastructure
+* Initializes PostgreSQL
+* Creates bankingdb automatically
+* Imports schema automatically
+* Deploys frontend and backend
+* Starts backend using PM2
+* Verifies deployment
+
+---
+
+# 🗄️ Database
+
+## PostgreSQL
+
+Host:
+
+```text
+db1
+```
+
+Port:
+
+```text
+5432
+```
 
 Database:
-- PostgreSQL
 
-DevOps:
-- Docker
-- Docker Compose
-- Ansible
+```text
+bankingdb
+```
 
-## Project Structure
+Auto-created during deployment.
 
-backend/
-frontend/
-db/
-docker-compose.yml
+Schema and seed users are automatically imported during container startup.
 
-## Running the Application
+---
 
-Build and start containers:
+# 🔌 API Endpoints
 
-docker compose up -d --build
+## Authentication
 
-Stop containers:
+```http
+POST /login
+POST /register
+```
 
-docker compose down
+## Banking
 
-View logs:
+```http
+POST /deposit
+POST /transfer
+GET /transactions
+GET /my-transactions
+```
 
-docker compose logs -f
+## User
 
-## Application Access
+```http
+GET /me
+GET /user/:email
+POST /change-password
+```
 
-Frontend:
-http://SERVER_IP:18080
+## Admin
 
-Backend API:
-http://SERVER_IP:13000
+```http
+GET /admin/users
+```
 
-## Demo Credentials
+---
 
-Admin User
+# 📸 Screenshots
 
-Email: auto@test.com
-Password: temp123
+Add screenshots:
 
-Regular Users
+* Login Page
+* Dashboard
+* Deposit Funds
+* Transfer Funds
+* Transaction History
+* User Profile
+* Admin Panel
+* Jenkins Pipeline
+* Ansible Deployment
 
-Email: test@test.com
-Password: 123456
+---
 
-Email: receiver@test.com
-Password: 123456
+# 🎯 Learning Objectives
 
-Email: pla@pla.com
-Password: 123456
+This project demonstrates:
 
-Email: kli@mli.com
-Password: 123456
+* Backend API Development
+* Authentication & Authorization
+* PostgreSQL Database Design
+* Docker Containerization
+* Multi-Container Architecture
+* Nginx Reverse Proxy Configuration
+* Infrastructure Automation with Ansible
+* CI/CD with Jenkins
+* Multi-Node Application Deployment
+* Production-style DevOps Workflows
 
-## Intended Usage
+---
 
-This project serves as a deployment target for:
+# 📜 License
 
-- Ansible playbooks
-- Docker automation
-- Infrastructure testing
-- Deployment pipelines
-- Configuration management exercises
-- Container orchestration practice
-- System administration labs
-
-## Disclaimer
-
-This application is intended solely for educational purposes, DevOps demonstrations, and infrastructure automation practice. It is not production-ready and must not be used for real financial operations or sensitive data.
+Educational and portfolio project.
