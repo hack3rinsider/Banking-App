@@ -4,11 +4,17 @@
 
   tasks:
 
-    - name: Switch traffic
-      replace:
-        path: /etc/nginx/sites-available/default
-        regexp: 'web[12]:3000'
-        replace: '{{ backend_target }}:3000'
+    - name: Configure nginx upstream
+      copy:
+        dest: /etc/nginx/sites-available/default
+        content: |
+          server {
+              listen 80;
+
+              location /api/ {
+                  proxy_pass http://{{ backend_target }}:3000/;
+              }
+          }
 
     - name: Reload nginx
       shell: nginx -s reload
