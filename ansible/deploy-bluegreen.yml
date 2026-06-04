@@ -46,6 +46,20 @@
         name: pm2
         global: yes
 
+    - name: Set BLUE version
+      replace:
+        path: /opt/banking-app/backend/server.js
+        regexp: "res.send\\(process.env.HOSTNAME \\|\\| 'unknown'\\);"
+        replace: "res.send('BLUE');"
+      when: target_env == "blue"
+
+    - name: Set GREEN version
+      replace:
+        path: /opt/banking-app/backend/server.js
+        regexp: "res.send\\(process.env.HOSTNAME \\|\\| 'unknown'\\);"
+        replace: "res.send('GREEN');"
+      when: target_env == "green"
+
     - name: Restart backend
       shell: |
         cd /opt/banking-app/backend
