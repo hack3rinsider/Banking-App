@@ -18,7 +18,7 @@ const pool = new Pool({
 });
 
 app.get('/', (req, res) => {
-  res.send(process.env.HOSTNAME || 'unknown');
+  res.send('BLUE' || 'unknown');
 });
 
 app.post('/register', async (req, res) => {
